@@ -615,6 +615,12 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, PrintError):
     def get_decimal_point(self):
         return self.decimal_point
 
+    def format_fee(self, amount_per_kilobyte):
+        if amount_per_kilobyte is None:
+            return ''
+        satoshis_per_byte = Decimal(amount_per_kilobyte) * 100 * 1000
+        return format_satoshis(satoshis_per_byte) + " sat/B"
+
     def base_unit(self):
         assert self.decimal_point in [2, 5, 8]
         if self.decimal_point == 2:
